@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="text-center p-5 mb-4 hero-banner"> 
+    <h1 class="display-4">Don't Waste It, Donate It.</h1>
+    <p class="lead">Connecting events with NGOs to ensure leftover food reaches those in need.</p>
+    <hr class="my-4">
+    <p>Join our platform to make a difference.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'donor_signup' %}" role="button">I'm an Event/Donor</a>
+    <a class="btn btn-success btn-lg" href="{% url 'ngo_signup' %}" role="button">I'm an NGO</a>
+</div>
+{% endblock %}

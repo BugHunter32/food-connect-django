@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>NGO Dashboard</h2>
+<p class="lead">Welcome, {{ user.organization_name }}! Find available food donations below.</p>
+<div class="row">
+    <div class="col-md-8">
+        <h3>Available Food Donations</h3>
+        <div class="list-group">
+            {% for donation in available_donations %}
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">From: {{ donation.donor.organization_name }}</h5>
+                    <small class="text-muted">Pickup by: {{ donation.pickup_time|date:"M d, H:i" }}</small>
+                </div>
+                <p class="mb-1"><strong>Food:</strong> {{ donation.food_description }}</p>
+                <p class="mb-1"><strong>Quantity:</strong> {{ donation.quantity }}</p>
+                <p class="mb-1"><strong>Location:</strong> {{ donation.pickup_location }}</p>
+                <a href="{% url 'claim_donation' donation.id %}" class="btn btn-success btn-sm mt-2">Claim This Donation</a>
+            </div>
+            {% empty %}<p>No available donations at the moment. Please check back later.</p>{% endfor %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3>Your Claimed Donations</h3>
+        <ul class="list-group">
+            {% for donation in claimed_donations %}
+            <li class="list-group-item">
+                <strong>From:</strong> {{ donation.donor.organization_name }}<br>
+                <strong>Pickup:</strong> {{ donation.pickup_time|date:"M d, H:i" }}<br>
+                <strong>Contact:</strong> {{ donation.donor.phone_number }}
+            </li>
+            {% empty %}<li class="list-group-item">You have not claimed any donations.</li>{% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

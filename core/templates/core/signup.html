@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="card-title text-center mb-4">Sign Up as a {{ user_type }}</h2>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            {{ field.label_tag }}
+                            <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control" placeholder="{{ field.label }}">
+                            {% if field.errors %}<div class="text-danger small">{{ field.errors|striptags }}</div>{% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="d-grid"><button type="submit" class="btn btn-primary">Sign Up</button></div>
+                </form>
+                 <div class="text-center mt-3"><p>Already have an account? <a href="{% url 'login' %}">Login here</a></p></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
